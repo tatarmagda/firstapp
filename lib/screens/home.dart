@@ -10,12 +10,14 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blueGrey[50],
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
         title: MyTextWidget(
           color: Colors.black,
           text: "Calculator",
+          size: 30.0,
         ),
         centerTitle: true,
         leading: const Icon(
@@ -31,27 +33,78 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Center(
-              child: MyTextWidget(
-                text: "equation",
-                color: Colors.purple,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                MyTextWidget(
+                  text: "equation",
+                  color: Colors.grey,
+                  size: 20.0,
+                ),
+              ],
             ),
             const SizedBox(
               height: 20.00,
             ),
-            Center(
-              child: MyTextWidget(
-                text: "sum",
-                color: Colors.green,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                MyTextWidget(
+                  text: "sum",
+                  color: Colors.black,
+                  size: 30.0,
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 20.00,
+            ),
+            const Divider(
+              thickness: 1.5,
+              color: Colors.grey,
+            ),
+            Row(
+              children: [
+                myButton("%", () {
+                  print("siemanko, witamy w kalkulatorku");
+                }),
+                myButton("#", () {
+                  print("siemanko, witamy w kalkulatorku");
+                }),
+                myButton("6", () {
+                  print("siemanko, witamy w kalkulatorku");
+                }),
+                myButton("!", () {
+                  print("siemanko, witamy w kalkulatorku");
+                }),
+              ],
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget myButton(
+    String text,
+    function,
+  ) {
+    return Expanded(
+      child: MaterialButton(
+        elevation: 5.0,
+        color: Colors.white,
+        child: MyTextWidget(
+          color: Colors.black,
+          size: 25.0,
+          text: text,
+        ),
+        onPressed: function,
       ),
     );
   }
