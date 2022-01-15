@@ -3,15 +3,21 @@ import 'package:flutter/material.dart';
 class MyTextWidget extends StatelessWidget {
   String? text;
   Color? color;
+  double? size;
 
-  MyTextWidget({this.text, this.color});
+  MyTextWidget({
+    this.text,
+    this.color,
+    this.size,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Text(text!,
-        style: const TextStyle(
-          color: Colors.black,
+        style: TextStyle(
+          color: color,
           fontWeight: FontWeight.bold,
+          fontSize: size,
         ));
   }
 }

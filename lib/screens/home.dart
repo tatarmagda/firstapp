@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:my_first_app/Widgets/text_widget.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
+
+  String equation = "equation";
+  String sum = "sum";
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +31,27 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: Container(
-        child: Text("Hello World:"),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Center(
+              child: MyTextWidget(
+                text: "equation",
+                color: Colors.purple,
+              ),
+            ),
+            const SizedBox(
+              height: 20.00,
+            ),
+            Center(
+              child: MyTextWidget(
+                text: "sum",
+                color: Colors.green,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
