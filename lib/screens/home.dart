@@ -3,16 +3,51 @@ import 'package:flutter/rendering.dart';
 import 'package:my_first_app/Widgets/text_widget.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
 
-  String equation = "equation";
-  String sum = "sum";
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  String? equation;
+
+  String? sum;
+
+  @override
+  void initState() {
+    super.initState();
+    equation = "";
+    sum = "0";
+  }
+
   List listButtons = [
+    Row(children: [
+      const Icon(
+        TablerIcons.plus,
+        size: 40,
+        color: Colors.black,
+      ),
+      MyTextWidget(
+        size: 20.0,
+        color: Colors.black,
+        text: '/',
+      ),
+      const Icon(
+        TablerIcons.minus,
+        size: 40,
+        color: Colors.black,
+      ),
+    ]),
     "x/-",
     "0",
     ",",
-    "=",
+    Icon(
+      TablerIcons.equal,
+      size: 40,
+      color: Colors.black,
+    ),
     "1",
     "2",
     "3",
@@ -50,6 +85,7 @@ class HomePage extends StatelessWidget {
     ),
     "1/x"
   ];
+
   List functionButtons = [
     const Icon(
       TablerIcons.percentage,
@@ -107,7 +143,7 @@ class HomePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     MyTextWidget(
-                      text: "equation",
+                      text: equation,
                       color: Colors.grey,
                       size: 20.0,
                     ),
@@ -120,7 +156,7 @@ class HomePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     MyTextWidget(
-                      text: "sum",
+                      text: sum,
                       color: Colors.black,
                       size: 30.0,
                     ),
@@ -154,12 +190,16 @@ class HomePage extends StatelessWidget {
                         const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 4),
                     itemBuilder: (contx, index) {
-                      return myButton(
-                          listButtons[index],
-                          () {},
-                          index >= listButtons.length - 4
-                              ? Colors.white
-                              : null);
+                      return myButton(listButtons[index], () {
+                        if (listButtons[index] is String) {
+                          // if (int.tryParse(listButtons[index]) is int) {
+                          setState(() {
+                            equation = equation! + listButtons[index];
+                          });
+                        }
+
+                        // }
+                      }, index >= listButtons.length - 4 ? Colors.white : null);
                     }),
                 // GridView.count(
                 //   shrinkWrap: true,
