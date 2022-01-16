@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:my_first_app/Widgets/text_widget.dart';
+import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
@@ -26,15 +27,52 @@ class HomePage extends StatelessWidget {
     "x",
     "CE",
     "C",
-    "BS",
+    Icon(
+      TablerIcons.backspace,
+      size: 40,
+      color: Colors.black,
+    ),
     "/",
+    Icon(
+      TablerIcons.percentage,
+      size: 40,
+      color: Colors.black,
+    ),
+    Icon(
+      TablerIcons.square_root,
+      size: 40,
+      color: Colors.black,
+    ),
+    Icon(
+      TablerIcons.superscript,
+      size: 40,
+      color: Colors.black,
+    ),
+    "1/x"
   ];
-  List functionButtons = [];
+  List functionButtons = [
+    const Icon(
+      TablerIcons.percentage,
+      size: 40,
+      color: Colors.black,
+    ),
+    const Icon(
+      TablerIcons.square_root,
+      size: 40,
+      color: Colors.black,
+    ),
+    const Icon(
+      TablerIcons.superscript,
+      size: 40,
+      color: Colors.black,
+    ),
+    "1/x"
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.blueGrey[50],
+        backgroundColor: Colors.orange[50],
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
@@ -95,12 +133,17 @@ class HomePage extends StatelessWidget {
                   thickness: 1.5,
                   color: Colors.grey,
                 ),
-                ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: 4,
-                    itemBuilder: (ctxt, index) {
-                      return Container();
-                    }),
+                // Container(
+                //   width: 250.0,
+                //   height: 100.0,
+                //   child: ListView.builder(
+                //       scrollDirection: Axis.horizontal,
+                //       shrinkWrap: true,
+                //       itemCount: 4,
+                //       itemBuilder: (ctxt, index) {
+                //         return (myButton(functionButtons[index], () {}));
+                //       }),
+                // ),
 
                 GridView.builder(
                     physics: const NeverScrollableScrollPhysics(),
@@ -111,7 +154,12 @@ class HomePage extends StatelessWidget {
                         const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 4),
                     itemBuilder: (contx, index) {
-                      return myButton(listButtons[index], () {});
+                      return myButton(
+                          listButtons[index],
+                          () {},
+                          index >= listButtons.length - 4
+                              ? Colors.white
+                              : null);
                     }),
                 // GridView.count(
                 //   shrinkWrap: true,
@@ -138,17 +186,21 @@ class HomePage extends StatelessWidget {
   }
 
   Widget myButton(
-    String text,
+    buttonConntent,
     function,
+    color,
   ) {
+    color = color ?? Colors.orange[100];
     return MaterialButton(
-      elevation: 5.0,
-      color: Colors.white,
-      child: MyTextWidget(
-        color: Colors.black,
-        size: 25.0,
-        text: text,
-      ),
+      elevation: 0.0,
+      color: color,
+      child: (buttonConntent is String)
+          ? MyTextWidget(
+              color: Colors.black,
+              size: 25.0,
+              text: buttonConntent,
+            )
+          : buttonConntent,
       onPressed: function,
     );
   }
