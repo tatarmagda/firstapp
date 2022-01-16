@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:math_expressions/math_expressions.dart';
 import 'package:my_first_app/Widgets/text_widget.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 
@@ -216,12 +217,21 @@ class _HomePageState extends State<HomePage> {
                                 equation!.length - 1,
                               );
                             });
+                          } else if (icon.icon == TablerIcons.equal) {
+                            sumFunction();
                           }
                         }
 
                         setState(() {
                           equation!.substring(equation!.length - 1);
                         });
+                        if (listButtons[index] is String &&
+                            listButtons[index] == "C") {
+                          setState(() {
+                            equation = "";
+                            sum = "0";
+                          });
+                        }
                         // }
                       }, index >= listButtons.length - 4 ? Colors.white : null);
                     }),
@@ -249,7 +259,16 @@ class _HomePageState extends State<HomePage> {
         ));
   }
 
-  void myButtonFunction() {}
+  sumFunction() {
+    Parser p = Parser();
+    String input = equation!.replaceAll("x", "*");
+    Expression exp = p.parse(input);
+    ContextModel cm = ContextModel();
+    double eval = exp.evaluate(EvaluationType.REAL, cm);
+    setState(() {
+      sum = eval.toString();
+    });
+  }
 
   Widget myButton(
     buttonConntent,
