@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:math_expressions/math_expressions.dart';
@@ -219,12 +221,29 @@ class _HomePageState extends State<HomePage> {
                             });
                           } else if (icon.icon == TablerIcons.equal) {
                             sumFunction();
+                          } else if (icon.icon == TablerIcons.percentage) {
+                            setState(() {
+                              equation = equation! + ("*0.01");
+                              sumFunction();
+                            });
+                          } else if (icon.icon == TablerIcons.square_root) {
+                            setState(() {
+                              var no = int.parse(equation!);
+
+                              double no2 = sqrt(no);
+
+                              equation = no2.toString();
+
+                              sumFunction();
+                            });
+                          } else if (icon.icon == TablerIcons.superscript) {
+                            setState(() {
+                              equation = equation! + ("*") + equation!;
+                              sumFunction();
+                            });
                           }
                         }
 
-                        setState(() {
-                          equation!.substring(equation!.length - 1);
-                        });
                         if (listButtons[index] is String &&
                             listButtons[index] == "C") {
                           setState(() {
