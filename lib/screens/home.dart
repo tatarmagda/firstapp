@@ -195,12 +195,15 @@ class _HomePageState extends State<HomePage> {
                     itemCount: listButtons.length,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 4),
+                      crossAxisCount: 4,
+                      childAspectRatio: 1.04,
+                    ),
                     itemBuilder: (contx, index) {
                       return myButton(listButtons[index], () {
                         if (listButtons[index] is String &&
                             listButtons[index] != "CE" &&
-                            listButtons[index] != "C") {
+                            listButtons[index] != "C" &&
+                            listButtons[index] != "1/x") {
                           // || -> or
                           // && -> and
                           // if (int.tryParse(listButtons[index]) is int) {
@@ -228,12 +231,9 @@ class _HomePageState extends State<HomePage> {
                             });
                           } else if (icon.icon == TablerIcons.square_root) {
                             setState(() {
-                              var no = int.parse(equation!);
-
+                              var no = num.parse(equation!);
                               double no2 = sqrt(no);
-
                               equation = no2.toString();
-
                               sumFunction();
                             });
                           } else if (icon.icon == TablerIcons.superscript) {
